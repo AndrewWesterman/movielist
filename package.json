@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "author": "Andrew Westerman",
   "license": "MIT",
@@ -16,6 +17,8 @@
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
+    "jsdoc": "^3.6.6",
+    "jsdoc-route-plugin": "^0.1.0",
     "nodemon": "^2.0.5"
   }
 }
