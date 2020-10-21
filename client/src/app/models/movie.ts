@@ -6,7 +6,7 @@ export class Movie {
     public id: number,
     public title: string,
     public director: string,
-    public releaseDate: string
+    public releaseDate: Date
   ) {}
 }
 
@@ -23,6 +23,11 @@ export class MovieAdapter implements Adapter<Movie> {
   // Convert movie back to expected json structure
   revert(movie: Movie): any {
     const { id, title, director, releaseDate } = movie;
-    return { _id: id, title, director, release_date: releaseDate };
+    return {
+      _id: id,
+      title,
+      director,
+      release_date: releaseDate,
+    };
   }
 }

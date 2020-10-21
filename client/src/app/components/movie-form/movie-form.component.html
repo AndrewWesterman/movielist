@@ -1,7 +1,7 @@
 <h2>
   <span>{{ isEdit ? "Edit" : "Add" }}</span> Movie
 </h2>
-<form (ngSubmit)="onSubmit()">
+<form name="movieForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="title">Title</label>
     <input
@@ -30,10 +30,13 @@
       type="date"
       class="form-control"
       id="releaseDate"
-      [(ngModel)]="movie.releaseDate"
+      [ngModel]="movie.releaseDate | date: 'yyyy-MM-dd'"
+      (ngModelChange)="movie.releaseDate = $event"
       name="releaseDate"
       required
     />
   </div>
-  <button type="submit">{{ isEdit ? "Save" : "Add" }}</button>
+  <button type="submit">
+    {{ isEdit ? "Save" : "Add" }}
+  </button>
 </form>
