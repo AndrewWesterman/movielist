@@ -8,7 +8,6 @@ const Movie = require('../../models/Movie');
 router.get('/', async (req, res) => {
     try {
         let movies = await Movie.find({});
-        console.log(movies);
         return res.json(movies);
     } catch (error) {
         console.error(error.message);
