@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "server": "nodemon server.js",
-    "client": "npm start --prefix client"
+    "server": "set NODE_ENV=development&&nodemon server.js",
+    "client": "npm start --prefix client",
+    "prod": "set NODE_ENV=production&& node server.js"
   },
   "author": "Andrew Westerman",
   "license": "MIT",
