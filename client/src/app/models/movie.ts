@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { Adapter } from './utilities/adapter';
 
 export class Movie {
@@ -10,6 +11,9 @@ export class Movie {
 }
 
 // This must be updated any time API return data changes
+@Injectable({
+  providedIn: 'root',
+})
 export class MovieAdapter implements Adapter<Movie> {
   // Convert json obj to Movie with our named props
   adapt(obj: any): Movie {
