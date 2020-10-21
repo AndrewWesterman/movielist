@@ -1,4 +1,4 @@
-<h2>
+<h2 class="text-primary">
   <span>{{ isEdit ? "Edit" : "Add" }}</span> Movie
 </h2>
 <form name="movieForm" (ngSubmit)="onSubmit()">
@@ -36,7 +36,11 @@
       required
     />
   </div>
-  <button type="submit">
-    {{ isEdit ? "Save" : "Add" }}
-  </button>
+
+  <div class="form-actions">
+    <button routerLink="/" class="btn btn-light">Cancel</button>
+    <button type="submit" class="btn btn-primary">
+      {{ isEdit ? "Save" : "Add" }}
+    </button>
+  </div>
 </form>
