@@ -32,13 +32,25 @@ export class MovieFormComponent implements OnInit {
   }
 
   onSubmit() {
+    // convert date to local because apparently humans input things in utc
+    let [y, m, d] = this.movie.releaseDate
+      .toString()
+      .split(/\D/)
+      .map((t) => +t);
+
+    // send movie with local date to server
+    const parsedMovie = {
+      ...this.movie,
+      releaseDate: new Date(y, m - 1, d),
+    } as Movie;
+
     if (this.isEdit) {
       this.movieService
-        .updateMovie(this.movie)
+        .updateMovie(parsedMovie)
         .subscribe(() => this.location.back());
     } else {
       this.movieService
-        .createMovie(this.movie)
+        .createMovie(parsedMovie)
         .subscribe(() => this.location.back());
     }
   }
