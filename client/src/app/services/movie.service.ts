@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Movie, MovieAdapter } from '../models/movie';
 import { map, catchError } from 'rxjs/operators';
 
@@ -9,6 +9,10 @@ import { map, catchError } from 'rxjs/operators';
 })
 export class MovieService {
   private moviesUrl = 'api/movies';
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
 
   constructor(private http: HttpClient, private adapter: MovieAdapter) {}
 
@@ -20,15 +24,28 @@ export class MovieService {
   }
 
   getMovie(id: string): Observable<Movie> {
-    return of({} as Movie);
+    const url = `${this.moviesUrl}/${id}`;
+    return this.http.get(url).pipe(
+      map((movie) => this.adapter.adapt(movie)),
+      catchError(this.handleError<any>('getMovie'))
+    );
   }
 
   createMovie(movie: Movie): Observable<Movie> {
-    return of({} as Movie);
+    const movieToCreate = this.adapter.revert(movie);
+    return this.http.post(this.moviesUrl, movieToCreate, this.httpOptions).pipe(
+      map((movie) => this.adapter.adapt(movie)),
+      catchError(this.handleError<any>('createMovie'))
+    );
   }
 
-  updateMovie(movie: Movie): Observable<any> {
-    return of({});
+  updateMovie(movie: Movie): Observable<Movie> {
+    const url = `${this.moviesUrl}/${movie.id}`;
+    const movieToUpdate = this.adapter.revert(movie);
+    return this.http.put(url, movieToUpdate, this.httpOptions).pipe(
+      map((movie) => this.adapter.adapt(movie)),
+      catchError(this.handleError<any>('updateMovie'))
+    );
   }
 
   /**

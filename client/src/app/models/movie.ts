@@ -19,4 +19,10 @@ export class MovieAdapter implements Adapter<Movie> {
   adapt(obj: any): Movie {
     return new Movie(obj._id, obj.title, obj.director, obj.release_date);
   }
+
+  // Convert movie back to expected json structure
+  revert(movie: Movie): any {
+    const { id, title, director, releaseDate } = movie;
+    return { _id: id, title, director, release_date: releaseDate };
+  }
 }
